@@ -1,17 +1,20 @@
-#app.py
-from flask import Flask;
-from controllers import get_average_prices;
+# app.py
+from flask import Flask
+from controllers.get_average_prices import average_prices
 
-# name for the Flask app (refer to output)
-app = Flask(__name__) 
+def create_app():
+    # name for the Flask app (refer to output)
+    app = Flask(__name__)
 
-app.register_blueprint(get_average_prices)
+    app.register_blueprint(average_prices)
 
-# defining a route
-@app.route("/", methods=['GET', 'POST', 'PUT']) # decorator
-def home(): # route handler function
-    # returning a response
-    return "Hello World!"
+    # defining a route
+    @app.route("/", methods=['GET'])
+    def home():  # route handler function
+        # returning a response
+        return "Hello World!"
 
-# running the server
-# app.run(debug=True)
+    return app
+
+
+APP = create_app()

@@ -1,18 +1,18 @@
 from flask import Blueprint
 from flask import request
-
-from models.rates_format import RatesSchema;
+from models.rates_format import RatesSchema
 
 average_prices = Blueprint("average_prices", __name__)
 
-@average_prices.route('/rates',  methods=['GET'])
-def GET_average_prices():  # route handler function
 
-    # grabbing all the parameters
-    date_from = request.args.get('date_from')
-    date_to = request.args.get('date_to')
-    origin = request.args.get('origin')
-    destination = request.args.get('destination')
+@average_prices.route('/rates', methods=['GET'])
+def GET_average_prices():  # route handler function
+    # check for any errors in any values when taking them in
+    #  we can do that with a class
+
+    # with our schema we can validate the requests arguments.
+    if (RatesSchema.validate(request.args)):
+        return "error in arguments"
 
     # returning a response
-    return "Hello World!"
+    return "Rates"
