@@ -13,8 +13,5 @@ def home(): # route handler function
     # returning a response
     return "Hello World!"
 
-# @app.route("/GET_average_prices", methods=['GET']) # decorator
-
-
 # running the server
 # app.run(debug=True)
