@@ -1,36 +1,38 @@
-# Data definition
+First install poetry if you do not have it
 
-We are providing you with a small set of simplified real-world data. A
-database dump is provided that includes the following information:
+```bash
+pip install poetry
+```
 
-## Ports
+then tell poetry to install dependencies 
 
-Information about ports, including:
+```bash
+poetry install
+```
 
-* 5-character port code
-* Port name
-* Slug describing which region the port belongs to
+then you can try out - http://127.0.0.1:5000/rates?date_from=2016-01-01&date_to=2016-01-10&origin=CNSGH&destination=north_europe_main
 
-## Regions
+but the only problem here is the table is not working, tried to fix this but ended up spending too much time leading to the rest going in blind! 
 
-A hierarchy of regions, including:
+# What I would do different
 
-* Slug - a machine-readable form of the region name
-* The name of the region
-* Slug describing which parent region the region belongs to
+I would certainly make everything run smooth first i had to drop the table from docker
+then init the table again from the dockerfile
+'
+a simple way would be just to docker run ratestask
 
-Note that a region can have both ports and regions as children, and the region
-tree does not have a fixed depth.
+then I would make sure the connection and psycopg2 would work well with postgres as 
+something was happening where psycopg2 was not getting any tables from tasksrates container
 
-## Prices
+I would then fix the queries as I could not test propery and would make sure that is in line
 
-Individual daily prices between ports, in USD.
+I also understood how the ports and regions worked together as you get the ports from the regions if only handed regions.
 
-* 5-character origin port code
-* 5-character destination port code
-* The day for which the price is valid
-* The price in USD
+possible combinations were 4 with 2 being interchangeable a bit!
 
+
+
+-----------------------------
 # Assignment: HTTP-based API
 
 Develop an [HTTP-based API](#task-1-http-based-api) capable of handling the GET request described below. Our stack is based on Flask, but you are free to choose any Python framework you like. All data returned is expected to be in JSON format. Please demonstrate your knowledge of SQL (as opposed to using ORM querying tools).
@@ -135,3 +137,9 @@ docker exec -e PGPASSWORD=ratestask -it ratestask psql -U postgres
 Keep in mind that any data written in the Docker container will
 disappear when it shuts down. The next time you run it, it will start
 with a clean state.
+
+
+---------------------------------
+
+
+
